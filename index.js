@@ -5,7 +5,7 @@ const app = express();
 const port = 3001;
 
 
-//app.get('/health', (_, res) => res.status(200));
+app.get('/healthz', (_, res) => res.status(200));
 
 app.get('/', async (_, res) => {
   const data = await getData();
