@@ -23,7 +23,7 @@ server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
 async function getData() {
-  const browser = await puppeteer.launch({headless:false});
+  const browser = await puppeteer.launch({headless:'new', args: ["--no-sandbox"]});
   const page = await browser.newPage();
   let productList = [];
 
