@@ -1,15 +1,12 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const { scrollPageToBottom } = require('puppeteer-autoscroll-down');
-
 const app = express();
 const port = 3001;
-
 app.get('/', async (req, res) => {
   const data = await getData();
   return res.status(200).json(data)
 });
-
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`)
 });
@@ -28,7 +25,7 @@ async function getData() {
 
   const maleProducts = await getCategory('men', page);
   const womenProducts = await getCategory('women', page);
- 
+
   browser.close();
   productList = [...maleProducts, ...womenProducts];
   const brands = [...new Set(productList.map((prd) => prd.brand))];
@@ -49,7 +46,7 @@ async function getData() {
 async function getCategory(category, page) {
   let productList = [];
   let pageIndex = 1;
-  
+
   await new Promise((resolve, reject) => {
 
     async function goToPage() {
