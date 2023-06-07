@@ -7,11 +7,13 @@ app.get('/', async (req, res) => {
   const data = await getData();
   return res.status(200).json(data)
 });
-app.listen(port, () => {
+
+const server = app.listen(port, () => {
   console.log(`app is listening on port ${port}`)
 });
 
-module.exports = app;
+server.keepAliveTimeout = 120 * 1000;
+server.headersTimeout = 120 * 1000;
 
 async function getData() {
   const browser = await puppeteer.launch({headless: "new"});
