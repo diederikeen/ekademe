@@ -32,9 +32,11 @@ async function getData() {
     height: 1080,
   });
 
+  console.log('fetching male');
   const maleProducts = await getCategory('men', page);
+  console.log('fetching female');
   const womenProducts = await getCategory('women', page);
-
+  console.log('done fetching');
   browser.close();
   productList = [...maleProducts, ...womenProducts];
   const brands = [...new Set(productList.map((prd) => prd.brand))];
@@ -61,6 +63,7 @@ async function getCategory(category, page) {
     async function goToPage() {
       // scroll page down to footer;
       const baseUrl = `https://www.farfetch.com/en-EN/shopping/${category}/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`;
+      console.log(`navigating too page category ${category} and page ${pageIndex}`);
       await page.goto(baseUrl, {waitUntil: 'load', timeout: 0});
 
       await scrollPageToBottom(page, {
