@@ -23,19 +23,11 @@ server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
 async function getData() {
-  const browser = await puppeteer.launch({headless:'new', args: ["--no-sandbox"]});
-  const page = await browser.newPage();
   let productList = [];
-
-  page.setViewport({
-    width: 1080,
-    height: 1080,
-  });
-
   console.log('fetching male');
-  const maleProducts = await getCategory('men', page);
+  const maleProducts = await getCategory('men');
   console.log('female');
-  const womenProducts = await getCategory('women', page);
+  const womenProducts = await getCategory('women');
 
   productList = [...maleProducts, ...womenProducts];
   const brands = [...new Set(productList.map((prd) => prd.brand))];
@@ -53,9 +45,17 @@ async function getData() {
 
 
 
-async function getCategory(category, page) {
+async function getCategory(category) {
+  const browser = await puppeteer.launch({headless: false, args: ["--no-sandbox"]});
+  const page = await browser.newPage();
   let productList = [];
   let pageIndex = 1;
+
+  page.setViewport({
+    width: 1080,
+    height: 1080,
+  });
+
 
   await new Promise((resolve, reject) => {
 
@@ -80,6 +80,7 @@ async function getCategory(category, page) {
       } else {
         // last page
         resolve();
+        browser.close();
       }
       return productList;
     }
