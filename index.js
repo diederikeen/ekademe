@@ -9,10 +9,10 @@ app.get('/healthz', (req, res) => {
   res.status(200).send();
 });
 
-//app.get('/api', async (_, res) => {
-  //const data = await getData();
-  //res.status(200).json(data)
-//});
+app.get('/api', async (_, res) => {
+  const data = await getData();
+  res.status(200).json(data)
+});
 
 
 const server = app.listen(port, () => {
