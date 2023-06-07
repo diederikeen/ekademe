@@ -5,12 +5,14 @@ const app = express();
 const port = 3001;
 
 
-app.get('/healthz', (_, res) => res.status(200));
-
-app.get('/', async (_, res) => {
-  const data = await getData();
-  res.status(200).json(data)
+app.get('/healthz', (req, res) => {
+  res.status(200).send();
 });
+
+//app.get('/api', async (_, res) => {
+  //const data = await getData();
+  //res.status(200).json(data)
+//});
 
 
 const server = app.listen(port, () => {
@@ -58,7 +60,7 @@ async function getCategory(category, page) {
 
     async function goToPage() {
       // scroll page down to footer;
-      const baseUrl = `https://www.farfetch.com/nl/shopping/${category}/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`;
+      const baseUrl = `https://www.farfetch.com/en-EN/shopping/${category}/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`;
       await page.goto(baseUrl);
 
       await scrollPageToBottom(page, {
