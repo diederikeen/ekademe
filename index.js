@@ -46,7 +46,7 @@ async function getData() {
 
 
 async function getCategory(category) {
-  const browser = await puppeteer.launch({headless: false, args: ["--no-sandbox"], dumpio: false, env: { DISPLAY: ":10"}});
+  const browser = await puppeteer.launch({headless: false, args: ["--no-sandbox"],  env: { DISPLAY: ":10"}});
   const page = await browser.newPage();
   let productList = [];
   let pageIndex = 1;
