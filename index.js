@@ -5,8 +5,10 @@ const app = express();
 const port = 3001;
 app.get('/', async (req, res) => {
   const data = await getData();
-  return res.status(200).json(data)
+  res.status(200).json(data)
 });
+
+app.get('/ok', (req, res) => res.status(200).json({success: true}));
 
 const server = app.listen(port, () => {
   console.log(`app is listening on port ${port}`)
