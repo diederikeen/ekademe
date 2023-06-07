@@ -74,7 +74,7 @@ async function getCategory(category, page) {
         const pageProducts = await getAllItems(page);
         // then
         productList = [...productList, ...pageProducts];
-        page.goto(`https://www.farfetch.com/nl/shopping/Men/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`).then(() => goToPage());
+        page.goto(`https://www.farfetch.com/nl/shopping/Men/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`, {waitUntil: 'load', timeout: 0}).then(() => goToPage());
       } else {
         // last page
         resolve();
