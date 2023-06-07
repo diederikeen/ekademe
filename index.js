@@ -37,7 +37,6 @@ async function getData() {
   console.log('fetching female');
   const womenProducts = await getCategory('women', page);
   console.log('done fetching');
-  browser.close();
   productList = [...maleProducts, ...womenProducts];
   const brands = [...new Set(productList.map((prd) => prd.brand))];
 
