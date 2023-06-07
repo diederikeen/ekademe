@@ -34,9 +34,9 @@ async function getData() {
 
   console.log('fetching male');
   const maleProducts = await getCategory('men', page);
-  console.log('fetching female');
+  console.log('female');
   const womenProducts = await getCategory('women', page);
-  console.log('done fetching');
+
   productList = [...maleProducts, ...womenProducts];
   const brands = [...new Set(productList.map((prd) => prd.brand))];
 
@@ -63,8 +63,8 @@ async function getCategory(category, page) {
       // scroll page down to footer;
       const baseUrl = `https://www.farfetch.com/en-EN/shopping/${category}/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`;
       console.log(`navigating too page category ${category} and page ${pageIndex}`);
-      await page.goto(baseUrl, {timeout: 0});
-      console.log('successfully navigated');
+      await page.goto(baseUrl, {waitUntil: 'load', timeout: 0});
+
       await scrollPageToBottom(page, {
         size: 500,
         delay: 250
@@ -76,7 +76,7 @@ async function getCategory(category, page) {
         const pageProducts = await getAllItems(page);
         // then
         productList = [...productList, ...pageProducts];
-        page.goto(`https://www.farfetch.com/nl/shopping/Men/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`, {timeout: 0}).then(() => goToPage());
+        page.goto(`https://www.farfetch.com/nl/shopping/Men/ekademe/items.aspx?page=${pageIndex}&view=96&sort=3&scale=282`, {waitUntil: 'load', timeout: 0}).then(() => goToPage());
       } else {
         // last page
         resolve();
