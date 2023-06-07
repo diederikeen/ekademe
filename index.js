@@ -3,12 +3,15 @@ const puppeteer = require('puppeteer');
 const { scrollPageToBottom } = require('puppeteer-autoscroll-down');
 const app = express();
 const port = 3001;
-app.get('/', async (req, res) => {
+
+
+app.get('/health', (_, res) => res.status(200));
+
+app.get('/', async (_, res) => {
   const data = await getData();
   res.status(200).json(data)
 });
 
-app.get('/ok', (req, res) => res.status(200).json({success: true}));
 
 const server = app.listen(port, () => {
   console.log(`app is listening on port ${port}`)
